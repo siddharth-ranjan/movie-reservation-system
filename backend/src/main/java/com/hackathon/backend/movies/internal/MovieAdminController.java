@@ -4,6 +4,7 @@ import com.hackathon.backend.movies.Movie;
 import com.hackathon.backend.movies.MovieRepository;
 import com.hackathon.backend.movies.dto.MovieRegister;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,7 +21,7 @@ class MovieAdminController {
     }
 
     @PostMapping("/movie/register")
-    Movie saveMovie(MovieRegister movieRegister) {
+    Movie saveMovie(@RequestBody MovieRegister movieRegister) {
         return movieRepository
                 .save(
                         new Movie(
