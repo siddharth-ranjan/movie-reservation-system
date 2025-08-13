@@ -25,12 +25,12 @@ public class Movie {
     private Set<Genre> genres;
 
     @Column(name = "movie_runtime",  nullable = false)
-    private int runtimeInMinutes;
+    private Integer runtimeInMinutes;
 
     public Movie() {
     }
 
-    public Movie(String title, String description, Set<Genre> genres, int runtimeInMinutes) {
+    public Movie(String title, String description, Set<Genre> genres, Integer runtimeInMinutes) {
         this.title = title;
         this.description = description;
         this.genres = genres;
@@ -65,11 +65,11 @@ public class Movie {
         this.genres = genre;
     }
 
-    public int getRuntimeInMinutes() {
+    public Integer getRuntimeInMinutes() {
         return runtimeInMinutes;
     }
 
-    public void setRuntimeInMinutes(int runtimeInMinutes) {
+    public void setRuntimeInMinutes(Integer runtimeInMinutes) {
         this.runtimeInMinutes = runtimeInMinutes;
     }
 
