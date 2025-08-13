@@ -1,4 +1,4 @@
-package com.hackathon.backend.movies.internal.dto;
+package com.hackathon.backend.movies.dto;
 
 import com.hackathon.backend.movies.Genre;
 

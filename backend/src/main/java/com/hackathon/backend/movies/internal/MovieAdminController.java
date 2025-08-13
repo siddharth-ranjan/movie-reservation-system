@@ -2,7 +2,7 @@ package com.hackathon.backend.movies.internal;
 
 import com.hackathon.backend.movies.Movie;
 import com.hackathon.backend.movies.MovieRepository;
-import com.hackathon.backend.movies.internal.dto.MovieRegister;
+import com.hackathon.backend.movies.dto.MovieRegister;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
