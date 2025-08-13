@@ -1,4 +1,5 @@
 package com.hackathon.backend.users.dto;
 
-class RegisterRequest {
-}
+import java.time.LocalDate;
+
+public record RegisterRequest(String username, String password, String email, LocalDate birthdate) {}
