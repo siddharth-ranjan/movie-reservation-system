@@ -1,7 +1,6 @@
 package com.hackathon.backend.movies;
 
 import jakarta.persistence.*;
-import org.antlr.v4.runtime.misc.NotNull;
 
 import java.util.Set;
 
@@ -13,7 +12,10 @@ public class Movie {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "movie_title", nullable = false)
     private String title;
+
+    @Column(name = "movie_description", nullable = false)
     private String description;
 
     @ElementCollection(targetClass = Genre.class, fetch = FetchType.EAGER)
@@ -21,6 +23,8 @@ public class Movie {
     @Enumerated(EnumType.STRING)
     @Column(name = "genre", nullable = false)
     private Set<Genre> genres;
+
+    @Column(name = "movie_runtime",  nullable = false)
     private int runtimeInMinutes;
 
     public Movie() {
