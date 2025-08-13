@@ -1,5 +1,6 @@
 package com.hackathon.backend.users;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -13,8 +14,13 @@ public class User {
     private Long id;
 
     private String username;
+
+    @JsonIgnore
     private String password;
+
     private String email;
+
+    @JsonIgnore
     private LocalDate birthDate;
 
     public User() {

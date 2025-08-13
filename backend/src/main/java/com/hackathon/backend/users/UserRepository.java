@@ -39,4 +39,6 @@ public interface UserRepository {
      * @return All saved user entity.
      */
     List<User> findAll();
+
+    boolean existsByEmail(String email);
 }

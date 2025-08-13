@@ -26,7 +26,7 @@ class UserInternalController {
         return userService.findAll();
     }
 
-    @PostMapping("/admin/user/{id}")
+    @GetMapping("/admin/user/{id}")
     User findById(@PathVariable Long id) {
         return userService.findById(id);
     }

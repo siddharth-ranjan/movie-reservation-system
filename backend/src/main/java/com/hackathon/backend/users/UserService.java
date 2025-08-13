@@ -19,11 +19,9 @@ public class UserService {
     }
 
     public User register(RegisterRequest user) {
-        userRepository
-                .findByEmail(user.email())
-                .ifPresent(existingUser -> {
-                    throw new IllegalArgumentException("Email already exists");
-                });
+        if (userRepository.existsByEmail(user.email())) {
+            throw new IllegalArgumentException("Email already exists");
+        }
 
         User newUser = new User(
                 user.username(),
