@@ -1,0 +1,82 @@
+package com.hackathon.backend.movies;
+
+import jakarta.persistence.*;
+import org.antlr.v4.runtime.misc.NotNull;
+
+import java.util.Set;
+
+@Entity
+@Table(name = "movies")
+public class Movie {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String title;
+    private String description;
+
+    @ElementCollection(targetClass = Genre.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "movie_genres", joinColumns = @JoinColumn(name = "movie_id"))
+    @Enumerated(EnumType.STRING)
+    @Column(name = "genre", nullable = false)
+    private Set<Genre> genres;
+    private int runtimeInMinutes;
+
+    public Movie() {
+    }
+
+    public Movie(String title, String description, Set<Genre> genres, int runtimeInMinutes) {
+        this.title = title;
+        this.description = description;
+        this.genres = genres;
+        this.runtimeInMinutes = runtimeInMinutes;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Set<Genre> getGenres() {
+        return genres;
+    }
+
+    public void setGenres(Set<Genre> genre) {
+        this.genres = genre;
+    }
+
+    public int getRuntimeInMinutes() {
+        return runtimeInMinutes;
+    }
+
+    public void setRuntimeInMinutes(int runtimeInMinutes) {
+        this.runtimeInMinutes = runtimeInMinutes;
+    }
+
+    @Override
+    public String toString() {
+        return "Movie{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", genre=" + genres +
+                ", runtimeInMinutes=" + runtimeInMinutes +
+                '}';
+    }
+}
