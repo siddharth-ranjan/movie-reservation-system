@@ -1,4 +1,4 @@
 @org.springframework.modulith.ApplicationModule(
-    displayName = "Showtimes"
+    displayName = "Showtime"
 )
 package com.hackathon.backend.showtime;

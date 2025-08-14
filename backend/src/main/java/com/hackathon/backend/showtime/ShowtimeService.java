@@ -2,7 +2,7 @@ package com.hackathon.backend.showtime;
 
 import com.hackathon.backend.movies.Movie;
 import com.hackathon.backend.movies.MovieService;
-import com.hackathon.backend.showtime.internal.dto.ShowtimeDTO;
+import com.hackathon.backend.showtime.dto.ShowtimeDTO;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;

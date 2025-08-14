@@ -1,7 +1,7 @@
 package com.hackathon.backend.showtime.internal;
 
 import com.hackathon.backend.showtime.ShowtimeService;
-import com.hackathon.backend.showtime.internal.dto.ShowtimeDTO;
+import com.hackathon.backend.showtime.dto.ShowtimeDTO;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;

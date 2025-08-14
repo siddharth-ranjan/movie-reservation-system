@@ -1,4 +1,4 @@
-package com.hackathon.backend.showtime.internal.dto;
+package com.hackathon.backend.showtime.dto;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
