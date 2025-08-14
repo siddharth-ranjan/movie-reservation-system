@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class MovieService {
@@ -27,5 +28,9 @@ public class MovieService {
     public List<Movie> findMovieByGenre(Genre genre) {
         return movieRepository
                 .findByGenresContaining(genre);
+    }
+    
+    public Optional<Movie> findMovieById(Long id) {
+        return movieRepository.findById(id);
     }
 }
