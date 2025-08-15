@@ -26,8 +26,7 @@ public class ShowtimeService {
 
         // 2. Fetch the COMPLETE and managed Movie entity from the database.
         // This throws an exception if the movie doesn't exist, handling your validation.
-        Movie fullMovie = movieService.findMovieById(movieId)
-                .orElseThrow(() -> new IllegalArgumentException("Movie with id " + movieId + " is not present!"));
+        Movie fullMovie = movieService.findMovieById(movieId);
 
         // 3. CRITICAL STEP: Replace the incomplete movie object with the full one.
         showtime.setMovie(fullMovie);
@@ -61,6 +60,11 @@ public class ShowtimeService {
             throw new IllegalArgumentException("Movie id is not present!");
         }
         return convertToShowTimesDTO(showtime);
+    }
+
+    public Showtime findShowtimeEntityById(Long id) {
+        return showtimeRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Showtime with id " + id + " is not present!"));
     }
 
     public ShowtimeDTO convertToShowTimesDTO(Showtime showTime) {
