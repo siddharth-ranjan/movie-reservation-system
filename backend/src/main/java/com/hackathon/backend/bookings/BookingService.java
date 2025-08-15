@@ -2,11 +2,11 @@ package com.hackathon.backend.bookings;
 
 import com.hackathon.backend.bookings.dto.BookingRequest;
 import com.hackathon.backend.bookings.dto.BookingResponse;
-import com.hackathon.backend.movies.MovieService;
 import com.hackathon.backend.showtime.Showtime;
 import com.hackathon.backend.showtime.ShowtimeService;
 import com.hackathon.backend.users.User;
 import com.hackathon.backend.users.UserService;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -19,20 +19,28 @@ public class BookingService {
     private final BookingRepository bookingRepository;
     private final UserService userService;
     private final ShowtimeService showtimeService;
+    private ApplicationEventPublisher publisher;
 
     public BookingService(
             BookingRepository bookingRepository,
             UserService userService,
-            ShowtimeService showtimeService
+            ShowtimeService showtimeService,
+            ApplicationEventPublisher publisher
     ) {
         this.bookingRepository = bookingRepository;
         this.userService = userService;
         this.showtimeService = showtimeService;
+        this.publisher = publisher;
     }
 
     public BookingResponse create(String username, BookingRequest bookingRequest) {
         Showtime showtime = showtimeService.findShowtimeEntityById(bookingRequest.showtimeId());
         User user = userService.findByUsername(username);
+
+        if (showtime.getAvailableSeats() < bookingRequest.bookedSeats()) {
+            throw new IllegalStateException("Not enough available seats for this showtime.");
+        }
+
         Booking bookingEntity =  bookingRepository
                 .save(
                         new Booking(
@@ -42,6 +50,14 @@ public class BookingService {
                                 showtime.getTicketPrice().multiply(BigDecimal.valueOf(bookingRequest.bookedSeats()))
                         )
                 );
+
+         BookingCompletedEvent event = new BookingCompletedEvent(
+                 bookingEntity.getId(),
+                 bookingEntity.getShowtime().getId(),
+                 bookingEntity.getBookedSeats()
+         );
+
+         publisher.publishEvent(event);
 
         return convertToBookingResponse(bookingEntity);
     }
