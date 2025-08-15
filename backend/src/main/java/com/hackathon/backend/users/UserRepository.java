@@ -41,4 +41,6 @@ public interface UserRepository {
     List<User> findAll();
 
     boolean existsByEmail(String email);
+
+    Optional<User> findByUsername(String username);
 }
