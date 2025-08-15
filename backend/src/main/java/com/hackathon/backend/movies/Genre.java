@@ -8,5 +8,6 @@ public enum Genre {
     ROMANCE,
     FICTION,
     FANTASY,
-    ACTION
+    ACTION,
+    DRAMA
 }
