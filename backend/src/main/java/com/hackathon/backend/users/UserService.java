@@ -1,6 +1,7 @@
 package com.hackathon.backend.users;
 
 import com.hackathon.backend.users.dto.RegisterRequest;
+import com.hackathon.backend.users.dto.Role;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -13,40 +14,30 @@ import java.util.List;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     public UserService(UserRepository userRepository) {
+
         this.userRepository = userRepository;
+        this.passwordEncoder = new BCryptPasswordEncoder();
     }
 
-    public User register(RegisterRequest user) {
-        if (userRepository.existsByEmail(user.email())) {
-            throw new IllegalArgumentException("Email already exists");
+    public User registerUser(RegisterRequest registerRequest) {
+        if (userRepository.findByUsername(registerRequest.username()).isPresent()) {
+            throw new IllegalStateException("Username already exists");
         }
-
-        User newUser = new User(
-                user.username(),
-                passwordEncoder().encode(user.password()),
-                user.email(),
-                user.birthdate()
-        );
-        return userRepository.save(newUser);
+        User user = new User();
+        user.setUsername(registerRequest.username());
+        user.setEmail(registerRequest.email());
+        user.setBirthDate(registerRequest.birthdate());
+        user.setPassword(passwordEncoder.encode(registerRequest.password())); // Encode password
+        user.setRole(Role.USER);
+        return userRepository.save(user);
     }
 
     private static PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
-//    public User update(User user) {
-//        User toUpdate = userRepository.findById(user.getId()).orElse(null);
-//
-//        if(toUpdate == null){
-//            return new User();
-//        }
-//        toUpdate.setEmail(user.getEmail());
-//        toUpdate.setBirthDate(user.getBirthDate());
-//        toUpdate.setUsername(user.getUsername());
-//        return userRepository.save(toUpdate);
-//    }
 
     public List<User> findAll() {
         return userRepository.findAll();
