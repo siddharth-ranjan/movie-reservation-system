@@ -2,11 +2,9 @@ package com.hackathon.backend.users;
 
 import com.hackathon.backend.users.dto.RegisterRequest;
 import com.hackathon.backend.users.dto.Role;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.List;
 
@@ -22,7 +20,7 @@ public class UserService {
         this.passwordEncoder = new BCryptPasswordEncoder();
     }
 
-    public User registerUser(RegisterRequest registerRequest) {
+    public void registerUser(RegisterRequest registerRequest) {
         if (userRepository.findByUsername(registerRequest.username()).isPresent()) {
             throw new IllegalStateException("Username already exists");
         }
@@ -32,7 +30,7 @@ public class UserService {
         user.setBirthDate(registerRequest.birthdate());
         user.setPassword(passwordEncoder.encode(registerRequest.password())); // Encode password
         user.setRole(Role.USER);
-        return userRepository.save(user);
+        userRepository.save(user);
     }
 
     private static PasswordEncoder passwordEncoder() {
