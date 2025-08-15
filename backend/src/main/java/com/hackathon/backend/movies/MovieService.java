@@ -30,7 +30,8 @@ public class MovieService {
                 .findByGenresContaining(genre);
     }
     
-    public Optional<Movie> findMovieById(Long id) {
-        return movieRepository.findById(id);
+    public Movie findMovieById(Long id) {
+        return movieRepository.findById(id).orElseThrow(() ->
+                new IllegalArgumentException("Movie with id " + id + " is not present!"));
     }
 }
