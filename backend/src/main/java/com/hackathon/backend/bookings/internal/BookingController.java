@@ -19,8 +19,9 @@ public class BookingController {
     }
 
     @PostMapping("/book")
-    public BookingResponse book(@RequestBody BookingRequest bookingRequest){
-        return bookingService.create(bookingRequest);
+    public BookingResponse book(@RequestBody BookingRequest bookingRequest, Authentication authentication) {
+        String username = authentication.getName();
+        return bookingService.create(username, bookingRequest);
     }
 
     @GetMapping("/myBookings")
