@@ -1,4 +1,4 @@
 package com.hackathon.backend.users.dto;
 
-class LoginRequest {
+public record LoginRequest(String username, String password) {
 }
