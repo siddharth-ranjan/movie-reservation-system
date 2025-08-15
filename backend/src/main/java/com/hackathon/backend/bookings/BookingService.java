@@ -2,7 +2,6 @@ package com.hackathon.backend.bookings;
 
 import com.hackathon.backend.bookings.dto.BookingRequest;
 import com.hackathon.backend.bookings.dto.BookingResponse;
-import com.hackathon.backend.movies.Movie;
 import com.hackathon.backend.movies.MovieService;
 import com.hackathon.backend.showtime.Showtime;
 import com.hackathon.backend.showtime.ShowtimeService;
@@ -20,27 +19,24 @@ public class BookingService {
     private final BookingRepository bookingRepository;
     private final UserService userService;
     private final ShowtimeService showtimeService;
-    private final MovieService movieService;
 
     public BookingService(
             BookingRepository bookingRepository,
             UserService userService,
-            ShowtimeService showtimeService,
-            MovieService movieService
+            ShowtimeService showtimeService
     ) {
         this.bookingRepository = bookingRepository;
         this.userService = userService;
         this.showtimeService = showtimeService;
-        this.movieService = movieService;
     }
 
-    public BookingResponse create(BookingRequest bookingRequest) {
+    public BookingResponse create(String username, BookingRequest bookingRequest) {
         Showtime showtime = showtimeService.findShowtimeEntityById(bookingRequest.showtimeId());
-
+        User user = userService.findByUsername(username);
         Booking bookingEntity =  bookingRepository
                 .save(
                         new Booking(
-                                userService.findById(bookingRequest.userId()),
+                                user,
                                 showtime,
                                 bookingRequest.bookedSeats(),
                                 showtime.getTicketPrice().multiply(BigDecimal.valueOf(bookingRequest.bookedSeats()))
