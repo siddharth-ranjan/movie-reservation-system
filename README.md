@@ -109,8 +109,6 @@ The modules communicate in two ways:
 - `GET /admin/bookings`: Get all bookings or filter by `showtimeId`.
     - Example: `GET /admin/bookings?showtimeId=1`
 
-*(This is a summary. A full API specification, e.g., using Swagger/OpenAPI, would be a great addition.)*
-
 ---
 
 ## 🤝 Contributing
